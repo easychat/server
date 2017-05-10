@@ -15,9 +15,7 @@ class MessagesChannel < ApplicationCable::Channel
   end
 
   def subscribed
-    if !is_authorized
-      return
-    end
+    return if !is_authorized
 
     stream_from room_name
     send_message({meta: true, type: "new-member", who: @user.email, sender: @user.email})
@@ -28,11 +26,15 @@ class MessagesChannel < ApplicationCable::Channel
   end
 
   def send_message(content)
-    if !is_authorized
-      return
-    end
+    return if !is_authorized
 
     ActionCable.server.broadcast room_name, content: content
+  end
+
+  def notify_participant(content)
+    return if !is_authorized
+    notify = params[:recipient]
+    UserMailer.invite(@user.email, notify, content[:secret_hint]).deliver_later
   end
 
   private

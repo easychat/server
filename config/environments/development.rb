@@ -31,10 +31,17 @@ Rails.application.configure do
   config.action_cable.allowed_request_origins = [ 'http://localhost:5000' ]
   config.action_cable.disable_request_forgery_protection = true
 
-  # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
 
+
+  # config.active_job.queue_adapter = :inline
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
   config.action_mailer.perform_caching = false
+
+  config.action_mailer.smtp_settings = {
+    :address => ENV['SMTP_HOST'],
+    :port => ENV['SMTP_PORT'],
+  }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

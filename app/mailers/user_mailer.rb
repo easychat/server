@@ -4,6 +4,6 @@ class UserMailer < ApplicationMailer
     @from = from
     @to = to
     @hint = hint
-    mail(to: to.email, subject: "#{@from.email} wants to start a secure chat")
+    mail(to: to, subject: "#{@from} has invited you to a secure chat")
   end
 end
