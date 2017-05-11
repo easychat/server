@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'hi@easy.gd'
+  default from: 'easy@standardnotes.org'
   layout 'mailer'
 end
