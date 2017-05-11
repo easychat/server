@@ -27,7 +27,7 @@ Rails.application.configure do
 
   config.web_socket_server_url = "wss://api.easy.gd/cable/"
   config.action_cable.url = 'wss://api.easy.gd/cable/'
-
+  config.action_cable.allowed_request_origins = [ 'https://api.easy.gd' ]
   # allow all clients
   config.action_cable.disable_request_forgery_protection = true
 
