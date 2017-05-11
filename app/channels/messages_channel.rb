@@ -27,7 +27,7 @@ class MessagesChannel < ApplicationCable::Channel
 
   def send_message(content)
     return if !is_authorized
-
+    content[:sender_verified] = @user.verified
     ActionCable.server.broadcast room_name, content: content
   end
 

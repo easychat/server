@@ -29,8 +29,20 @@ class AuthController < ApplicationController
       @user = User.new
       @user.email = params[:email]
       @user.encrypted_password = hash_password(params[:password])
+      @user.verify_token = Digest::SHA256.hexdigest(SecureRandom.random_bytes(16))
       @user.save
+      UserMailer.verify(@user).deliver_later
       render :json => {:user => @user, :token => jwt(@user)}
+    end
+  end
+
+  def verify
+    @user = User.find_by_uuid(params[:uuid])
+    token = params[:token]
+    if token == @user.verify_token
+      @user.verified = true
+      @user.verify_token = nil
+      @user.save
     end
   end
 

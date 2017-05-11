@@ -1,0 +1,10 @@
+<% if @user.verified %>
+  <p>
+    Your email has been successfully verified.
+    People you chat with will see a blue checkmark next to your email.
+  </p>
+<% else %>
+<p>
+  There was an error verifying your email. Please try again.
+</p>
+<% end %>

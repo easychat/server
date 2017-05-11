@@ -4,6 +4,10 @@ class CreateUsers < ActiveRecord::Migration[5.0]
       t.string :uuid, limit: 36, primary_key: true, null: false
       t.string :email
       t.string :encrypted_password, :null => false, :default => ""
+
+      t.boolean :verified, :default => false
+      t.string :verify_token
+
       t.timestamps
     end
     add_index :users, :email
